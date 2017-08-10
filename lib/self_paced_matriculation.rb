@@ -1,0 +1,3 @@
+module SelfPacedMatriculation
+  # Your code goes here...
+end
