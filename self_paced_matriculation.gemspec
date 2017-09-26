@@ -1,22 +1,20 @@
 $:.push File.expand_path("../lib", __FILE__)
 
-# Maintain your gem's version:
 require "self_paced_matriculation/version"
 
-# Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
   s.name        = "self_paced_matriculation"
   s.version     = SelfPacedMatriculation::VERSION
-  s.authors     = ["James Carbine"]
-  s.email       = ["jamescarbine@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of SelfPacedMatriculation."
-  s.description = "TODO: Description of SelfPacedMatriculation."
-  s.license     = "MIT"
+  s.authors     = ["Atomic Jolt", "Scott Phillips"]
+  s.email       = ["scott.phillips@atomicjolt.com"]
+  s.homepage    = "https://github.com/atomicjolt/self_paced_matriculation"
+  s.summary     = "Enables Self-Paced Enrollments through the Canvas API"
+  s.license     = "AGPL-3.0"
+  s.extra_rdoc_files = ["README.md"]
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.required_ruby_version = ">= 2.3"
 
-  s.add_dependency "rails", "~> 5.0.2"
+  s.files = Dir["{db,lib}/**/*"]
 
-  s.add_development_dependency "sqlite3"
+  s.add_dependency "rails", ">= 5.0"
 end
