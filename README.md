@@ -1,28 +1,20 @@
-# SelfPacedMatriculation
-Short description and motivation.
+# Self Paced Matriculation
+This plugin enables use of the [Canvas Enrollments API](https://canvas.instructure.com/doc/api/enrollments.html) to enroll individuals in "Self Paced" Courses.
 
-## Usage
-How to use my plugin.
+## API Usage
+Additional API paramaeters have been added to make this possible:
+- `self_paced` - Boolean, default `false`.  When added to the parameters as `true` a `start_at` and `end_at` date are expected in the params and will be set on the enrollment to reflect personal course enrollment dates.  (See [Canvas Enrollments API](https://canvas.instructure.com/doc/api/enrollments.html) documentation for date formats on these parameters.)
 
 ## Installation
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'self_paced_matriculation'
+Clone this repo into the Canvas Plugins directory on your app server:
+```sh
+sysadmin@appserver:~$ cd /path/to/canvas/gems/plugins
+sysadmin@appserver:/path/to/canvas/gems/plugins$ git clone https://github.com/atomicjolt/self_paced_matriculation.git
 ```
 
-And then execute:
-```bash
-$ bundle
-```
+Now `bundle install` and `bundle exec rake canvas:compile_assets` and `rails server`.
 
-Or install it yourself as:
-```bash
-$ gem install self_paced_matriculation
-```
+After it is up, login with the site admin account and head over to the `/plugins` route (Navigated to by clicking `Admin -> Site Admin -> Plugins`).
+Once there, scroll down to `Self Paced Matriculation` and click into it.  Enable the plugin.
 
-## Contributing
-Contribution directions go here.
-
-## License
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+You should be all set now. Enjoy!
