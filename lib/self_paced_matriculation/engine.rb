@@ -20,8 +20,15 @@ module SelfPacedMatriculation
     "This adds a self_paced field to the Enrollments API.".freeze
   class Engine < ::Rails::Engine
     config.autoload_paths << File.expand_path(File.join(__FILE__, "../.."))
+    config.eager_load_paths << File.expand_path(File.join(__FILE__, "../.."))
 
     config.to_prepare do
+      # In development we have to force loading Api::V1:User module first, so
+      # the constant we want to override gets created first
+      Api::V1::User
+      module Api::V1::User
+        API_ENROLLMENT_JSON_OPTS = (Api::V1::User.const_get("API_ENROLLMENT_JSON_OPTS") + %i[self_paced]).freeze
+      end
       Canvas::Plugin.register(
         :self_paced_enrollment_api,
         :sis,
@@ -30,12 +37,11 @@ module SelfPacedMatriculation
         author: "Atomic Jolt",
         author_website: "http://www.atomicjolt.com/",
         description: -> { t(:description, DESCRIPTION) },
-        version: SelfPacedMatriculation::VERSION,
+        version: SelfPacedMatriculation::Version,
         settings: {
           valid_contexts: %w{Account Course},
         },
       )
-      require "self_paced_matriculation/self_paced_enrollment"
     end
   end
 end

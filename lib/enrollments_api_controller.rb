@@ -30,8 +30,6 @@ class EnrollmentsApiController
   alias unmodified_create_enrollment create
   @@errors[:missing_dates] ||= 'start_at and end_at dates required for self_paced enrollment'
 
-  Api::V1::User.const_get("API_ENROLLMENT_JSON_OPTS").push(:self_paced)
-
   def create
     errors = []
 
