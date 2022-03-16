@@ -4,7 +4,7 @@ require "self_paced_matriculation/version"
 
 Gem::Specification.new do |s|
   s.name        = "self_paced_matriculation"
-  s.version     = SelfPacedMatriculation::VERSION
+  s.version     = SelfPacedMatriculation::Version
   s.authors     = ["Atomic Jolt", "Scott Phillips"]
   s.email       = ["scott.phillips@atomicjolt.com"]
   s.homepage    = "https://github.com/atomicjolt/self_paced_matriculation"
