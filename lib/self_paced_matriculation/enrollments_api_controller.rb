@@ -32,7 +32,6 @@ class EnrollmentsApiController
 
   define_method(:create) do
     errors = []
-
     #Check if self_paced enrollment
     if params[:enrollment][:self_paced].present? && value_to_boolean(params[:enrollment][:self_paced])
       # Canvas code for enrollment parameter checking
@@ -49,7 +48,7 @@ class EnrollmentsApiController
           role = @context.account.get_course_role_by_name(role_name)
         else
           type = "StudentEnrollment" if type.blank?
-          role = Role.get_built_in_role(type)
+          role = Role.get_built_in_role(type, root_account_id: @context.root_account_id)
           if role.nil? || !role.course_role?
             errors << @@errors[:bad_type]
           end

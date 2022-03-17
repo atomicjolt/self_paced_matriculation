@@ -18,17 +18,23 @@ module SelfPacedMatriculation
   DISPLAY_NAME = "Self Paced Course Enrollment".freeze
   DESCRIPTION =
     "This adds a self_paced field to the Enrollments API.".freeze
+
   class Engine < ::Rails::Engine
     config.autoload_paths << File.expand_path(File.join(__FILE__, "../.."))
     config.eager_load_paths << File.expand_path(File.join(__FILE__, "../.."))
 
-    config.to_prepare do
+    initializer "self_paced_matriculation.canvas_plugin" do
       # In development we have to force loading Api::V1:User module first, so
-      # the constant we want to override gets created first
+      # the constant we want to override gets created before we append to it
       Api::V1::User
       module Api::V1::User
         API_ENROLLMENT_JSON_OPTS = (Api::V1::User.const_get("API_ENROLLMENT_JSON_OPTS") + %i[self_paced]).freeze
       end
+      # Load the Canvas application controller first, then the one in the plugins
+      require "app/controllers/enrollments_api_controller"
+      require "self_paced_matriculation/enrollments_api_controller"
+    end
+    config.to_prepare do
       Canvas::Plugin.register(
         :self_paced_enrollment_api,
         :sis,
