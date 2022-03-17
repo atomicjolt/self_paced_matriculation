@@ -27,10 +27,10 @@ SELF_PACED_ENGINE_ROOT = SelfPacedMatriculation::Engine.root
 class EnrollmentsApiController
   include Api::V1::User
 
-  alias unmodified_create_enrollment create
+  unmodified_create_enrollment = instance_method(:create)
   @@errors[:missing_dates] ||= 'start_at and end_at dates required for self_paced enrollment'
 
-  def create
+  define_method(:create) do
     errors = []
 
     #Check if self_paced enrollment
@@ -123,7 +123,7 @@ class EnrollmentsApiController
       if previous_enrollment.present?
         previous_enrollment.update(self_paced: false)
       end
-      unmodified_create_enrollment
+      unmodified_create_enrollment.bind(self).()
     end
   end
 
