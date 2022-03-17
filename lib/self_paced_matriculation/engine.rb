@@ -32,7 +32,7 @@ module SelfPacedMatriculation
       end
       # Load the Canvas application controller first, then the one in the plugins
       require "app/controllers/enrollments_api_controller"
-      require "self_paced_matriculation/enrollments_api_controller"
+      require_relative "../../app/controllers/enrollments_api_controller"
     end
     config.to_prepare do
       Canvas::Plugin.register(
